@@ -5,19 +5,32 @@ import (
 	"github.com/surrealdb/surrealdb.go"
 )
 
-func GetEvent(db *surrealdb.DB) {
-
+func CreateEvent(event Event, conn *surrealdb.DB) (string, error) {
+	// TODO: implement
+	return (nil, nil)
 }
 
-func setupDB() *surrealdb.DB {
-	url := os.Getenv("SURREALDB_URL")
-	if url == "" {
-		url = "ws://localhost:8000/rpc"
+func FetchEvent(ID string, conn *surrealdb.DB) (Event, error) {
+	eventData, err := db.Select(fmt.Sprintf("events:%s", id))
+	if err == nil {
+		return (nil, err)
 	}
+	
+	var event Event
+	err := surrealdb.Unmarshal(eventData, &event) 
+	if err == nil {
+		return (nil, err)
+	} 
+	
+	return (event, nil)
+}
 
-	db, err := surrealdb.New(url)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "error creating database: %v\n", err)
-		os.Exit(1)
-	}
+func SearchEvent(term string, start int, stop int, conn *surrealdb.DB) ([]Event, error) {
+	// TODO: implement
+	return (nil, nil)
+}
+
+func AttendEvent(eventID string, attendee Attendee) (string, error) {
+	// TODO: implement
+	return (nil, nil)
 }
